@@ -47,8 +47,8 @@ extern System *stub ;//= System_SDL_create();
 
 #undef main
 int main(int argc, char *argv[]) {
-	const char *dataPath = ".";
-	const char *savePath = ".";
+	const char *dataPath = "/media/data/local/home/.aw";
+	const char *savePath = "/media/data/local/home/.aw";
 	for (int i = 1; i < argc; ++i) {
 		bool opt = false;
 		if (strlen(argv[i]) >= 2) {

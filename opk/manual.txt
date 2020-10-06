@@ -1,0 +1,16 @@
+Another World
+by Eric Chahi
+
+[ Prerequisities ]
+
+Copy BANK* and MEMLIST.BIN from original game into ~/.aw/
+
+[ Controls ]
+
+D-Pad: Move
+B: Action
+A: Pause
+Y: Load state
+X: Save state
+START: Enter code
+SELECT: Quit

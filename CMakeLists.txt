@@ -1,3 +1,10 @@
+set(CMAKE_SYSTEM_NAME Linux)
+set(CMAKE_SYSTEM_PROCESSOR mips)
+
+set(tools /home/jfu/x-tools/gcw0-toolchain)
+set(CMAKE_C_COMPILER ${tools}/bin/mipsel-gcw0-linux-uclibc-gcc)
+set(CMAKE_CXX_COMPILER ${tools}/bin/mipsel-gcw0-linux-uclibc-g++)
+
 cmake_minimum_required(VERSION 3.13)
 project(raw)
 
@@ -25,7 +32,5 @@ add_executable(raw
 )
 
 find_package(SDL2 REQUIRED)
-include_directories(${SDL2_INCLUDE_DIRS})
-target_link_libraries(raw ${SDL2_LIBRARIES})
+target_link_libraries(raw SDL2)
 target_link_libraries(raw z)
-

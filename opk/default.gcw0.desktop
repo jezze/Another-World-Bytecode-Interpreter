@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Another World
+Comment=Another World
+Exec=raw
+Terminal=false
+Type=Game
+StartupNotify=true
+Icon=icon
+Categories=games;
+X-OD-Manual=manual.txt
