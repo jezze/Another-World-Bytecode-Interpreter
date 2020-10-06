@@ -16,7 +16,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-#include <SDL.h>
+#include <SDL2/SDL.h>
 #include "sys.h"
 #include "util.h"
 
@@ -30,7 +30,7 @@ struct SDLStub : System {
 		SOUND_SAMPLE_RATE = 22050
 	};
 
-	int DEFAULT_SCALE = 3;
+	int DEFAULT_SCALE = 1;
 
 	SDL_Surface *_screen = nullptr;
 	SDL_Window * _window = nullptr;
@@ -99,7 +99,7 @@ void SDLStub::prepareGfxMode() {
   int h = SCREEN_H;
 
   _window = SDL_CreateWindow("Another World", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, w * _scale, h * _scale, SDL_WINDOW_SHOWN);
-  _renderer = SDL_CreateRenderer(_window, -1, 0);
+  _renderer = SDL_CreateRenderer(_window, -1, SDL_RENDERER_ACCELERATED);
   _screen = SDL_CreateRGBSurface(SDL_SWSURFACE, w, h, 8, 0, 0, 0, 0);
   if (!_screen) {
     error("SDLStub::prepareGfxMode() unable to allocate _screen buffer");
@@ -156,30 +156,15 @@ void SDLStub::processEvents() {
 			case SDLK_DOWN:
 				input.dirMask &= ~PlayerInput::DIR_DOWN;
 				break;
-			case SDLK_SPACE:
-			case SDLK_RETURN:
+			case SDLK_LALT:
 				input.button = false;
 				break;
 			case SDLK_ESCAPE:
-        input.quit = true;
+                input.quit = true;
 				break;
 			}
 			break;
 		case SDL_KEYDOWN:
-			if (ev.key.keysym.mod & KMOD_CTRL) {
-        if (ev.key.keysym.sym == SDLK_x) {
-          input.quit = true;
-        } else if (ev.key.keysym.sym == SDLK_s) {
-					input.save = true;
-				} else if (ev.key.keysym.sym == SDLK_l) {
-					input.load = true;
-				} else if (ev.key.keysym.sym == SDLK_KP_PLUS) {
-					input.stateSlot = 1;
-				} else if (ev.key.keysym.sym == SDLK_KP_MINUS) {
-					input.stateSlot = -1;
-				}
-        break;
-			}
 			input.lastChar = ev.key.keysym.sym;
 			switch(ev.key.keysym.sym) {
 			case SDLK_LEFT:
@@ -194,21 +179,21 @@ void SDLStub::processEvents() {
 			case SDLK_DOWN:
 				input.dirMask |= PlayerInput::DIR_DOWN;
 				break;
-			case SDLK_SPACE:
-			case SDLK_RETURN:
+			case SDLK_LALT:
 				input.button = true;
 				break;
-			case SDLK_c:
+			case SDLK_RETURN:
 				input.code = true;
 				break;
-			case SDLK_p:
+			case SDLK_LCTRL:
 				input.pause = true;
 				break;
-			  case SDLK_TAB :
-          _scale = _scale + 1;
-        if (_scale > 4) { _scale = 1; }
-        switchGfxMode();
-        break;
+			case SDLK_LSHIFT:
+                input.save = true;
+				break;
+			case SDLK_SPACE:
+                input.load = true;
+				break;
 			default:
 				break;
 			}
